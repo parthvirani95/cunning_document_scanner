@@ -54,6 +54,8 @@ class DocumentScannerActivity : AppCompatActivity() {
      */
     private val cropperOffsetWhenCornersNotFound = 100.0
 
+    private var isPickedFromGallery = false
+
     /**
      * @property document This is the current document. Initially it's null. Once we capture
      * the photo, and find the corners we update document.
@@ -220,6 +222,17 @@ class DocumentScannerActivity : AppCompatActivity() {
                 }
                 croppedImageQuality = it
             }
+
+            // validate croppedImageQuality option, and update value if user sets it
+            intent.extras?.get(DocumentScannerExtra.IS_PICKED_FROM_GALLERY)?.let {
+                if (it !is Boolean ) {
+                    throw Exception(
+                        "${DocumentScannerExtra.IS_PICKED_FROM_GALLERY} must be a boolean"
+                    )
+                }
+                isPickedFromGallery = it
+            }
+
         } catch (exception: Exception) {
             finishIntentWithError(
                 "invalid extra: ${exception.message}"
@@ -241,13 +254,18 @@ class DocumentScannerActivity : AppCompatActivity() {
 
         // open camera, so user can snap document photo
         try {
-            openCamera()
+            if(isPickedFromGallery){
+                openGallery()
+            }else{
+                openCamera()
+            }
         } catch (exception: Exception) {
             finishIntentWithError(
                 "error opening camera: ${exception.message}"
             )
         }
     }
+
 
     /**
      * Pass in a photo of a document, and get back 4 corner points (top left, top right, bottom
@@ -289,6 +307,12 @@ class DocumentScannerActivity : AppCompatActivity() {
         document = null
         cameraUtil.openCamera(documents.size)
     }
+
+    private fun openGallery() {
+        document = null
+        cameraUtil.openGallery(documents.size)
+    }
+
 
     /**
      * Once user accepts by pressing check button, or by pressing add new document button, add
