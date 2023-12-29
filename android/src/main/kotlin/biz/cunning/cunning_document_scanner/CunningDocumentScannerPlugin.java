@@ -122,7 +122,7 @@ public class CunningDocumentScannerPlugin implements FlutterPlugin, MethodCallHa
         Intent documentScanIntent = new Intent(activity, DocumentScannerActivity.class);
         documentScanIntent.putExtra(DocumentScannerExtra.EXTRA_LET_USER_ADJUST_CROP, crop);
         documentScanIntent.putExtra(DocumentScannerExtra.EXTRA_MAX_NUM_DOCUMENTS, crop ? 100 : 1);
-        documentScanIntent.putExtra(DocumentScannerExtra.IS_IMAGE_PICKED_FROM_GALLERY, true);
+//        documentScanIntent.putExtra(DocumentScannerExtra.IS_IMAGE_PICKED_FROM_GALLERY, true);
 
         return documentScanIntent;
     }
