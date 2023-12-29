@@ -80,8 +80,15 @@ class DocumentScannerActivity : AppCompatActivity() {
 
             // if maxNumDocuments is 3 and this is the 3rd photo, hide the new photo button since
             // we reach the allowed limit
+            val newPhotoButton: ImageButton = findViewById(R.id.new_photo_button)
+            val completeDocumentScanButton: ImageButton = findViewById(R.id.complete_document_scan_button)
+            val retakePhotoButton: ImageButton = findViewById(R.id.retake_photo_button)
+
+            newPhotoButton.visibility=  View.VISIBLE;
+            completeDocumentScanButton.visibility=  View.VISIBLE;
+            retakePhotoButton.visibility=  View.VISIBLE;
+
             if (documents.size == maxNumDocuments - 1) {
-                val newPhotoButton: ImageButton = findViewById(R.id.new_photo_button)
                 newPhotoButton.isClickable = false
                 newPhotoButton.visibility = View.INVISIBLE
             }
@@ -255,7 +262,12 @@ class DocumentScannerActivity : AppCompatActivity() {
         // open camera, so user can snap document photo
         try {
             if(isPickedFromGallery){
+                newPhotoButton.visibility=  View.INVISIBLE;
+                completeDocumentScanButton.visibility=  View.INVISIBLE;
+                retakePhotoButton.visibility=  View.INVISIBLE;
                 openGallery()
+
+
             }else{
                 openCamera()
             }
