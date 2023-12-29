@@ -3,7 +3,6 @@ package biz.cunning.cunning_document_scanner;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -24,14 +23,12 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
 
 public class CunningDocumentScannerPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
+    private static final int START_DOCUMENT_ACTIVITY = 0x362738;
     private PluginRegistry.ActivityResultListener delegate;
     private ActivityPluginBinding binding;
     private Result pendingResult;
     private Activity activity;
-
     private MethodChannel channel;
-
-    private static final int START_DOCUMENT_ACTIVITY = 0x362738;
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPlugin.FlutterPluginBinding flutterPluginBinding) {
@@ -125,6 +122,7 @@ public class CunningDocumentScannerPlugin implements FlutterPlugin, MethodCallHa
         Intent documentScanIntent = new Intent(activity, DocumentScannerActivity.class);
         documentScanIntent.putExtra(DocumentScannerExtra.EXTRA_LET_USER_ADJUST_CROP, crop);
         documentScanIntent.putExtra(DocumentScannerExtra.EXTRA_MAX_NUM_DOCUMENTS, crop ? 100 : 1);
+        documentScanIntent.putExtra(DocumentScannerExtra.IS_IMAGE_PICKED_FROM_GALLERY, true);
 
         return documentScanIntent;
     }
