@@ -34,13 +34,33 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: SingleChildScrollView(
-            child: Column(
-          children: [
-            ElevatedButton(
-                onPressed: onPressed, child: const Text("Add Pictures")),
-            for (var picture in _pictures) Image.file(File(picture))
-          ],
-        )),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ElevatedButton(
+                    onPressed: onPressed,
+                    style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 16)),
+                    child: const Text("From Camera"),
+                  ),
+                  ElevatedButton(
+                    onPressed: onPressed,
+                    style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 16)),
+                    child: const Text("From Gallery"),
+                  ),
+                  ElevatedButton(
+                    onPressed: onPressed,
+                    style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 16)),
+                    child: const Text("Create PDF"),
+                  ),
+                ],
+              ),
+              for (var picture in _pictures) Image.file(File(picture)),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+enum Source { CAMERA, GALLERY }
+
 class CunningDocumentScanner {
   static const MethodChannel _channel = MethodChannel('cunning_document_scanner');
 
